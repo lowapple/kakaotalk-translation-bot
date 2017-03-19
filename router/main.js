@@ -11,11 +11,11 @@ module.exports = function (app, fs) {
 	app.post('/message', function (req, res) {
 		var result = {};
 
-		if (!req.body["user_key"] || !req.body["type"] || !req.body["content"]) {
-			result["success"] = 0;
-			result["error"] = "invalid request";
-			res.json(result);
-			return;
+		//if (!req.body["user_key"] || !req.body["type"] || !req.body["content"]) {
+		//	result["success"] = 0;
+		//	result["error"] = "invalid request";
+	//		res.json(result);
+	//		return;
 		}
 
 		if (req.body["content"] == "도움말" || req.body["content"] == "만든이") {
@@ -48,7 +48,7 @@ module.exports = function (app, fs) {
 			var cheerio = require("cheerio");
 			var url = 'http://alldic.daum.net/search.do?q=' + req.body["content"];
 			var messages = JSON.parse(data);
-			
+
 			request(url, function (error, response, body) {
 				if (error) throw error;
 				var $ = cheerio.load(body);
