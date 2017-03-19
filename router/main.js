@@ -1,3 +1,4 @@
+// 카카오톡 모듈
 module.exports = function (app, fs) {
 	// 키보드
 	app.get('/keyboard', function (req, res) {
@@ -11,12 +12,12 @@ module.exports = function (app, fs) {
 	app.post('/message', function (req, res) {
 		var result = {};
 
-		//if (!req.body["user_key"] || !req.body["type"] || !req.body["content"]) {
-		//	result["success"] = 0;
-		//	result["error"] = "invalid request";
-	//		res.json(result);
-	//		return;
-	//	}
+		if (!req.body["user_key"] || !req.body["type"] || !req.body["content"]) {
+			result["success"] = 0;
+			result["error"] = "invalid request";
+			res.json(result);
+			return;
+		}
 
 		if (req.body["content"] == "도움말" || req.body["content"] == "만든이") {
 			fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
@@ -36,8 +37,8 @@ module.exports = function (app, fs) {
 					function (err, data) {})
 
 				fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
-					// console.log("Request_user_key : " + req.body["user_key"]);
-					// console.log("Request_type : keyboard - " + req.body["content"]);
+					console.log("Request_user_key : " + req.body["user_key"]);
+					console.log("Request_type : keyboard - " + req.body["content"]);
 					res.end(data);
 					return;
 				})
