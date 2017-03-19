@@ -16,7 +16,7 @@ module.exports = function (app, fs) {
 		//	result["error"] = "invalid request";
 	//		res.json(result);
 	//		return;
-		}
+	//	}
 
 		if (req.body["content"] == "도움말" || req.body["content"] == "만든이") {
 			fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
