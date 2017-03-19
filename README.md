@@ -2,7 +2,7 @@
 
 Nodejs, Heroku
 
-### npm install
+## npm install
 - express
 - ejs
 - body-parser
