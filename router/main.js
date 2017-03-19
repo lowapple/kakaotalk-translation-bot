@@ -48,7 +48,74 @@ module.exports = function(app, fs)
 		}
 		else 
 		{
-			
+
 		}
     });
+
+	// 친구추가
+	app.post('/friend', function(req, res){
+        var result = {  };
+		
+		// 요청 param 체크
+        if(!req.body["user_key"]){
+            result["success"] = 0;
+            result["error"] = "invalid request";
+            res.json(result);
+            return;
+        }
+		
+		// 파일 입출력
+        fs.readFile( __dirname + "/../data/friend.json", 'utf8',  function(err, data){
+            var users = JSON.parse(data);
+			// 이미 존재하는 친구일 경우
+            if(users[req.body["user_key"]]){
+                result["success"] = 0;
+                result["error"] = "duplicate";
+                res.json(result);
+                return;
+            }
+            // 친구추가
+            users[req.body["user_key"]] = req.body;
+            fs.writeFile(__dirname + "/../data/friend.json",
+                         JSON.stringify(users, null, '\t'), "utf8", function(err, data){
+                result = 200;
+                res.json(result);
+                return;
+            })
+        })
+    });
+	
+	// 친구삭제(차단)
+	app.delete('/friend/:user_key', function(req, res){
+        var result = { };
+		
+        // 파일 입출력
+        fs.readFile(__dirname + "/../data/friend.json", "utf8", function(err, data){
+            var users = JSON.parse(data);
+ 
+            // 존재하지 않는 친구일 경우
+            if(!users[req.params.user_key]){
+                result["success"] = 0;
+                result["error"] = "not found";
+                res.json(result);
+                return;
+            }
+			// 친구 삭제
+            delete users[req.params.user_key];
+            fs.writeFile(__dirname + "/../data/friend.json",
+                         JSON.stringify(users, null, '\t'), "utf8", function(err, data){
+                result = 200;
+                res.json(result);
+                return;
+            })
+        })
+    })
+	
+	// 채팅방 나가기
+	app.delete('/chat_room/:user_key', function(req, res){
+        var result = { };
+		result = 200;
+		res.json(result);
+		return;
+    })
 }
