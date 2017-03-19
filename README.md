@@ -2,7 +2,7 @@
 
 Nodejs, Heroku
 
-### npm install
+## npm install
 - express
 - ejs
 - body-parser
@@ -10,3 +10,7 @@ Nodejs, Heroku
 - request
 - encodeuri-safe
 
+## 참고
+https://github.com/plusfriend/auto_reply
+
+http://myeonguni.tistory.com/1553
