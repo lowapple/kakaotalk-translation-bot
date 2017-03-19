@@ -65,5 +65,3 @@ typings/
 !.vscode/extensions.json
 
 # End of https://www.gitignore.io/api/visualstudiocode,node
-
-/node_modules
