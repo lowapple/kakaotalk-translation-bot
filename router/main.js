@@ -24,7 +24,7 @@ module.exports = function (app, fs) {
 
 				if (req.body["content"] == "도움말")
 					messages["message"] = {
-						"text": "영어단어를 입력하시면 뜻이 표시됩니다. \n반대로 한글을 입력하면 영어단어가 표시됩니다."
+						"text": "영어단어를 입력하시면 뜻이 표시됩니다.\n반대로 한글을 입력하면 영어단어가 표시됩니다."
 					};
 				else
 					messages["message"] = {
@@ -44,7 +44,34 @@ module.exports = function (app, fs) {
 			})
 		} else {
 			// 단어 파싱
+			var request = require('request');
+			var cheerio = require("cheerio");
+			var url = 'http://alldic.daum.net/search.do?q=' + req.body["content"];
+			var messages = JSON.parse(data);
 			
+			request(url, function (error, response, body) {
+				if (error) throw error;
+				var $ = cheerio.load(body);
+				var wordpage = $("#mArticle div.cleanword_type.kuek_type").first();
+				var word = wordpage.find("div.search_cleanword strong a").text();
+				var means = $("ul.list_search").first();
+				var meaning = $(means).find("li").text();
+				// --------------
+				console.log(word);
+				console.log(meaning);
+				messages["message"] = {
+						"text": word + "\n" + meaning
+				};
+
+				fs.writeFile(__dirname + "/../data/message.json",
+					JSON.stringify(messages, null, '\t'), "utf8",
+					function (err, data) {})
+
+				fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
+					res.end(data);
+					return;
+				})
+			});
 		}
 	});
 

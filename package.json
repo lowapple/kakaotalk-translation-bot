@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "node server.js"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -15,7 +15,16 @@
     "encodeuri-safe": "^0.0.1",
     "express": "^4.15.2",
     "express-session": "^1.15.1",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "cheerio": "^0.22.0"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fliplope/Flipword-KakaoChatBot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Fliplope/Flipword-KakaoChatBot/issues"
+  },
+  "homepage": "https://github.com/Fliplope/Flipword-KakaoChatBot#readme"
 }
