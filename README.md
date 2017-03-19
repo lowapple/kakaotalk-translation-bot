@@ -3,6 +3,7 @@
 Nodejs, Heroku
 
 ## npm install
+- cheerio
 - express
 - ejs
 - body-parser
