@@ -44,9 +44,10 @@ module.exports = function (app, fs) {
 			})
 		} else {
 			// 단어 파싱
-			//var request = require('request');
-			//var cheerio = require("cheerio");
-			//var url = 'http://alldic.daum.net/search.do?q=' + req.body["content"];
+			var request = require('request');
+			var cheerio = require("cheerio");
+			var url = 'http://alldic.daum.net/search.do?q=' + req.body["content"];
+			
 			fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
 				var messages = JSON.parse(data);
 				messages["message"] = {
@@ -62,6 +63,7 @@ module.exports = function (app, fs) {
 					return;
 				})
 			})
+			
 			//request(url, function (error, response, body) {
 			//	if (error) throw error;
 			//	var $ = cheerio.load(body);
