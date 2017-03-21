@@ -9,16 +9,16 @@ module.exports = function (app, fs) {
 	});
 
 	// 메시지
-	app.post('/message', function(req, res){
-		var result = {  };
-		
+	app.post('/message', function (req, res) {
+		var result = {};
+
 		// CHECK REQ VALIDITY
-        if(!req.body["user_key"] || !req.body["type"] || !req.body["content"]){
-            result["success"] = 0;
-            result["error"] = "invalid request";
+		if (!req.body["user_key"] || !req.body["type"] || !req.body["content"]) {
+			result["success"] = 0;
+			result["error"] = "invalid request";
 			res.json(result);
-            return;
-        }
+			return;
+		}
 
 		if (req.body["content"] == "도움말" || req.body["content"] == "만든이") {
 			fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
@@ -47,17 +47,17 @@ module.exports = function (app, fs) {
 			//var request = require('request');
 			//var cheerio = require("cheerio");
 			//var url = 'http://alldic.daum.net/search.do?q=' + req.body["content"];
-			var messages = JSON.parse(data);
-			fs.readFile(__dirname + "/../data/message.json","utf8",function(err,data){
+			fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
 				var messages = JSON.parse(data);
 				messages["message"] = {
-					"text" : req.body["content"]
-				}
+					"text": "영어단어를 입력하시면 뜻이 표시됩니다.\n반대로 한글을 입력하면 영어단어가 표시됩니다."
+				};
+
 				fs.writeFile(__dirname + "/../data/message.json", JSON.stringify(messages, null, '\t'), "utf8", function (err, data) {})
-				
+
 				fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
-					// console.log("Request_user_key : " + req.body["user_key"]);
-					// console.log("Request_type : keyboard - " + req.body["content"]);
+					console.log("Request_user_key : " + req.body["user_key"]);
+					console.log("Request_type : keyboard - " + req.body["content"]);
 					res.end(data);
 					return;
 				})
