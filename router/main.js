@@ -58,7 +58,7 @@ module.exports = function (app, fs) {
 					var meaning = $(means).find("li").text();
 					
 					messages["message"] = {
-						"text": meaning.toString()
+						"text": word.toString() + "\n" + meaning.toString()
 					};
 
 					fs.writeFile(__dirname + "/../data/message.json", JSON.stringify(messages, null, '\t'), "utf8", function (err, data) {})
