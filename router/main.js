@@ -56,7 +56,7 @@ module.exports = function (app, fs) {
 					var word = wordpage.find("div.search_cleanword strong a").text();
 					var means = $("ul.list_search").first();
 					var meaning = $(means).find("li").text();
-					
+
 					messages["message"] = {
 						"text": word.toString() + "\n" + meaning.toString()
 					};
@@ -71,30 +71,6 @@ module.exports = function (app, fs) {
 					})
 				});
 			})
-
-			//request(url, function (error, response, body) {
-			//	if (error) throw error;
-			//	var $ = cheerio.load(body);
-			//	var wordpage = $("#mArticle div.cleanword_type.kuek_type").first();
-			//	var word = wordpage.find("div.search_cleanword strong a").text();
-			//	var means = $("ul.list_search").first();
-			//	var meaning = $(means).find("li").text();
-			//	// --------------
-			//	console.log(word);
-			//	console.log(meaning);
-			//	messages["message"] = {
-			//			"text": word + "\n" + meaning
-			//	};
-
-			//	fs.writeFile(__dirname + "/../data/message.json",
-			//		JSON.stringify(messages, null, '\t'), "utf8",
-			//		function (err, data) {})
-
-			//	fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
-			//		res.end(data);
-			//		return;
-			//	})
-			//});
 		}
 	});
 
