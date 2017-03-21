@@ -47,23 +47,25 @@ module.exports = function (app, fs) {
 			var request = require('request');
 			var cheerio = require("cheerio");
 			var url = 'http://alldic.daum.net/search.do?q=' + req.body["content"];
-			
+
 			fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
 				var messages = JSON.parse(data);
-				messages["message"] = {
-					"text": "영어단어를 입력하시면 뜻이 표시됩니다.\n반대로 한글을 입력하면 영어단어가 표시됩니다."
-				};
+				request(url, function (error, response, body) {
+					messages["message"] = {
+						"text": body
+					};
 
-				fs.writeFile(__dirname + "/../data/message.json", JSON.stringify(messages, null, '\t'), "utf8", function (err, data) {})
+					fs.writeFile(__dirname + "/../data/message.json", JSON.stringify(messages, null, '\t'), "utf8", function (err, data) {})
 
-				fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
-					console.log("Request_user_key : " + req.body["user_key"]);
-					console.log("Request_type : keyboard - " + req.body["content"]);
-					res.end(data);
-					return;
-				})
+					fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
+						console.log("Request_user_key : " + req.body["user_key"]);
+						console.log("Request_type : keyboard - " + req.body["content"]);
+						res.end(data);
+						return;
+					})
+				});
 			})
-			
+
 			//request(url, function (error, response, body) {
 			//	if (error) throw error;
 			//	var $ = cheerio.load(body);
