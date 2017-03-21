@@ -11,6 +11,7 @@ var server = app.listen(port, function(){
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(session({
+    secret: '@#@$MYSIGN#@$#$',
     resave: false,
     saveUninitialized: true
 }));
