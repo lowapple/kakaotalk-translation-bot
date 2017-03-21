@@ -52,7 +52,7 @@ module.exports = function (app, fs) {
 				var messages = JSON.parse(data);
 				request(url, function (error, response, body) {
 					messages["message"] = {
-						"text": body
+						"text": response.statusCode
 					};
 
 					fs.writeFile(__dirname + "/../data/message.json", JSON.stringify(messages, null, '\t'), "utf8", function (err, data) {})
