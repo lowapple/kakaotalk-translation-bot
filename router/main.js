@@ -9,15 +9,16 @@ module.exports = function (app, fs) {
 	});
 
 	// 메시지
-	app.post('/message', function (req, res) {
-		var result = {};
-
-		if (!req.body["user_key"] || !req.body["type"] || !req.body["content"]) {
-			result["success"] = 0;
-			result["error"] = "invalid request";
+	app.post('/message', function(req, res){
+		var result = {  };
+		
+		// CHECK REQ VALIDITY
+        if(!req.body["user_key"] || !req.body["type"] || !req.body["content"]){
+            result["success"] = 0;
+            result["error"] = "invalid request";
 			res.json(result);
-			return;
-		}
+            return;
+        }
 
 		if (req.body["content"] == "도움말" || req.body["content"] == "만든이") {
 			fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
@@ -32,9 +33,7 @@ module.exports = function (app, fs) {
 						"text": "Fliplope가 개발하였습니다."
 					};
 
-				fs.writeFile(__dirname + "/../data/message.json",
-					JSON.stringify(messages, null, '\t'), "utf8",
-					function (err, data) {})
+				fs.writeFile(__dirname + "/../data/message.json", JSON.stringify(messages, null, '\t'), "utf8", function (err, data) {})
 
 				fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
 					console.log("Request_user_key : " + req.body["user_key"]);
@@ -45,34 +44,47 @@ module.exports = function (app, fs) {
 			})
 		} else {
 			// 단어 파싱
-			var request = require('request');
-			var cheerio = require("cheerio");
-			var url = 'http://alldic.daum.net/search.do?q=' + req.body["content"];
+			//var request = require('request');
+			//var cheerio = require("cheerio");
+			//var url = 'http://alldic.daum.net/search.do?q=' + req.body["content"];
 			var messages = JSON.parse(data);
-
-			request(url, function (error, response, body) {
-				if (error) throw error;
-				var $ = cheerio.load(body);
-				var wordpage = $("#mArticle div.cleanword_type.kuek_type").first();
-				var word = wordpage.find("div.search_cleanword strong a").text();
-				var means = $("ul.list_search").first();
-				var meaning = $(means).find("li").text();
-				// --------------
-				console.log(word);
-				console.log(meaning);
+			fs.readFile(__dirname + "/../data/message.json","utf8",function(err,data){
+				var messages = JSON.parse(data);
 				messages["message"] = {
-						"text": word + "\n" + meaning
-				};
-
-				fs.writeFile(__dirname + "/../data/message.json",
-					JSON.stringify(messages, null, '\t'), "utf8",
-					function (err, data) {})
-
+					"text" : req.body["content"]
+				}
+				fs.writeFile(__dirname + "/../data/message.json", JSON.stringify(messages, null, '\t'), "utf8", function (err, data) {})
+				
 				fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
+					// console.log("Request_user_key : " + req.body["user_key"]);
+					// console.log("Request_type : keyboard - " + req.body["content"]);
 					res.end(data);
 					return;
 				})
-			});
+			})
+			//request(url, function (error, response, body) {
+			//	if (error) throw error;
+			//	var $ = cheerio.load(body);
+			//	var wordpage = $("#mArticle div.cleanword_type.kuek_type").first();
+			//	var word = wordpage.find("div.search_cleanword strong a").text();
+			//	var means = $("ul.list_search").first();
+			//	var meaning = $(means).find("li").text();
+			//	// --------------
+			//	console.log(word);
+			//	console.log(meaning);
+			//	messages["message"] = {
+			//			"text": word + "\n" + meaning
+			//	};
+
+			//	fs.writeFile(__dirname + "/../data/message.json",
+			//		JSON.stringify(messages, null, '\t'), "utf8",
+			//		function (err, data) {})
+
+			//	fs.readFile(__dirname + "/../data/message.json", 'utf8', function (err, data) {
+			//		res.end(data);
+			//		return;
+			//	})
+			//});
 		}
 	});
 
