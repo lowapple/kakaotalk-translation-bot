@@ -11,7 +11,5 @@ Nodejs, Heroku
 - request
 - encodeuri-safe
 
-## 참고
+## 개발시 참고
 https://github.com/plusfriend/auto_reply
-
-http://myeonguni.tistory.com/1553
