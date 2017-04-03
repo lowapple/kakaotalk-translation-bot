@@ -45,16 +45,16 @@ module.exports = function(app, fs) {
             // 단어 파싱
             var request = require('request');
             var cheerio = require("cheerio");
-            var str = req.body["content"].toString();
+            var str = req.body["content"];
             var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
             var chk_han = str.match(check);;
             var url = "";
 
-            if (!chk_han) {
-                url = 'http://alldic.daum.net/search.do?q=' + str;
-            } else {
-                url = 'http://dic.daum.net/search.do?q=' + str + '&dic=eng';
-            }
+            //if (!chk_han) {
+            url = 'http://alldic.daum.net/search.do?q=' + str;
+            //} else {
+            //    url = 'http://dic.daum.net/search.do?q=' + str + '&dic=eng';
+            //}
 
             fs.readFile(__dirname + "/../data/message.json", 'utf8', function(err, data) {
                 var messages = JSON.parse(data);
