@@ -25,7 +25,7 @@ module.exports = function(app, fs) {
                 var messages = JSON.parse(data);
                 if (req.body["content"] == "도움말") {
                     messages["message"] = {
-                        "text": "영어단어를 입력하시면 뜻이 표시됩니다.\n반대로 한글을 입력하면 영어단어가 표시됩니다."
+                        "text": "영어단어를 입력하시면 뜻이 표시됩니다."
                     };
                 } else {
                     messages["message"] = {
