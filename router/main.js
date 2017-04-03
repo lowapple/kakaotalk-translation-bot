@@ -61,7 +61,7 @@ module.exports = function(app, fs) {
                 request(url, function(error, response, body) {
                     var $ = cheerio.load(body);
                     var wordpage = $("#mArticle div.cleanword_type.kuke_type").first();
-                    var word = wordpage.find("div.search_cleanword strong a span").text();
+                    // var word = wordpage.find("div.search_cleanword strong a span").text();
                     var meanUl = $("ul.list_search").first();
                     var meanLi = $(meanUl).find("li");
                     var meanArray = "";
@@ -72,7 +72,7 @@ module.exports = function(app, fs) {
                     });
 
                     messages["message"] = {
-                        "text": word.toString() + "\n" + meanArray.toString()
+                        "text": meanArray.toString()
                     };
 
                     fs.writeFile(__dirname + "/../data/message.json", JSON.stringify(messages, null, '\t'), "utf8", function(err, data) {})
