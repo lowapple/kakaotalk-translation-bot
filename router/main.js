@@ -45,13 +45,16 @@ module.exports = function(app, fs) {
             // 단어 파싱
             var request = require('request');
             var cheerio = require("cheerio");
-            var han = /[ㄱ-ㅎ|ㅏ-ㅣ|가-?]/g;
-            var chk_han = req.body["content"].match(han);
+            var str = req.body["content"];
+            var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+            var chk_han = str.match(check);;
             var url = "";
-            //if (!chk_han)
-            url = 'http://alldic.daum.net/search.do?q=' + req.body["content"];
-            //else
-            //    url = 'http://dic.daum.net/word/view.do?wordid=kew000097072&q=' + req.body["content"];
+
+            if (!chk_han) {
+                url = 'http://alldic.daum.net/search.do?q=' + str;
+            } else {
+                url = 'http://dic.daum.net/search.do?q=' + str + '&dic=eng';
+            }
 
             fs.readFile(__dirname + "/../data/message.json", 'utf8', function(err, data) {
                 var messages = JSON.parse(data);
