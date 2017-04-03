@@ -50,8 +50,8 @@ module.exports = function(app, fs) {
             var url = "";
             if (!chk_han)
                 url = 'http://alldic.daum.net/search.do?q=' + req.body["content"];
-            else
-                url = 'http://dic.daum.net/word/view.do?wordid=kew000097072&q=' + req.body["content"];
+            //else
+            //    url = 'http://dic.daum.net/word/view.do?wordid=kew000097072&q=' + req.body["content"];
 
             fs.readFile(__dirname + "/../data/message.json", 'utf8', function(err, data) {
                 var messages = JSON.parse(data);
