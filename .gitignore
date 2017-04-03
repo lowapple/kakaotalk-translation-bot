@@ -1,4 +1,5 @@
-reated by https://www.gitignore.io/api/visualstudiocode,node
+
+# Created by https://www.gitignore.io/api/node,visualstudiocode
 
 ### Node ###
 # Logs
@@ -35,6 +36,10 @@ bower_components
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
+# Dependency directories
+node_modules/
+jspm_packages/
+
 # Typescript v1 declaration files
 typings/
 
@@ -64,4 +69,4 @@ typings/
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# End of https://www.gitignore.io/api/visualstudiocode,node
+# End of https://www.gitignore.io/api/node,visualstudiocode
