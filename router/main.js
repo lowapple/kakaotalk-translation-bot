@@ -48,8 +48,8 @@ module.exports = function(app, fs) {
             var han = /[ㄱ-ㅎ|ㅏ-ㅣ|가-?]/g;
             var chk_han = req.body["content"].match(han);
             var url = "";
-            if (!chk_han)
-                url = 'http://alldic.daum.net/search.do?q=' + req.body["content"];
+            //if (!chk_han)
+            url = 'http://alldic.daum.net/search.do?q=' + req.body["content"];
             //else
             //    url = 'http://dic.daum.net/word/view.do?wordid=kew000097072&q=' + req.body["content"];
 
