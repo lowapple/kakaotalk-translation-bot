@@ -45,7 +45,7 @@ module.exports = function(app, fs) {
             // 단어 파싱
             var request = require('request');
             var cheerio = require("cheerio");
-            var str = req.body["content"];
+            var str = req.body["content"].toString();
             var check = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
             var chk_han = str.match(check);;
             var url = "";
@@ -72,7 +72,7 @@ module.exports = function(app, fs) {
                     });
 
                     messages["message"] = {
-                        "text": word + "\n" + meanArray
+                        "text": word.toString() + "\n" + meanArray.toString()
                     };
 
                     fs.writeFile(__dirname + "/../data/message.json", JSON.stringify(messages, null, '\t'), "utf8", function(err, data) {})
