@@ -35,8 +35,8 @@ module.exports = function(app, fs) {
 
                 fs.writeFile(__dirname + "/../data/message.json", JSON.stringify(messages, null, '\t'), "utf8", function(err, data) {})
                 fs.readFile(__dirname + "/../data/message.json", 'utf8', function(err, data) {
-                    console.log("Request_user_key : " + req.body["user_key"]);
-                    console.log("Request_type : keyboard - " + req.body["content"]);
+                    // console.log("Request_user_key : " + req.body["user_key"]);
+                    // console.log("Request_type : keyboard - " + req.body["content"]);
                     res.end(data);
                     return;
                 })
