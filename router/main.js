@@ -3,7 +3,7 @@ module.exports = function(app, fs) {
     // 키보드
     app.get('/keyboard', function(req, res) {
         fs.readFile(__dirname + "/../data/" + "keyboard.json", 'utf8', function(err, data) {
-            console.log(data);
+            // console.log(data);
             res.end(data);
         });
     });
@@ -11,7 +11,6 @@ module.exports = function(app, fs) {
     // 메시지
     app.post('/message', function(req, res) {
         var result = {};
-
         // CHECK REQ VALIDITY
         if (!req.body["user_key"] || !req.body["type"] || !req.body["content"]) {
             result["success"] = 0;
